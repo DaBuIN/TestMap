@@ -9,12 +9,46 @@
 import UIKit
 import MapKit
 
-class ViewController: UIViewController, CLLocationManagerDelegate {
+class ViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate {
 
 //    let app = UIApplication.shared.delegate as! AppDelegate
-    var locMgr: CLLocationManager!
+    var locMgr: CLLocationManager! // 管理使用者的位置資訊
     
-    @IBOutlet weak var myMap: MKMapView!
+    @IBOutlet weak var myMap: MKMapView! // mapView屬性與方法
+    @IBOutlet weak var btnCurrentLoc: UIButton!
+    
+    @IBAction func mapZoomToCurrentLoc(_ sender: Any) {
+//        locMgr.startUpdatingLocation()
+        myMap.setCenter(myMap.userLocation.coordinate, animated: true)
+    }
+    
+    @IBAction func mapZoomIn(_ sender: Any) {
+        
+        var region = MKCoordinateRegion()
+        // 還有另一個建構式: MKCoordinateRegion(center: CLLocationCoordinate2D, span: MKCoordinateSpan)
+        
+        let latDelta = myMap.region.span.latitudeDelta * 0.5
+        let lngDelta = myMap.region.span.longitudeDelta * 0.5
+        
+        region.span.latitudeDelta = latDelta
+        region.span.longitudeDelta = lngDelta
+        region.center = myMap.region.center
+        
+        myMap.setRegion(region, animated: true)
+    }
+    
+    @IBAction func mapZoomOut(_ sender: Any) {
+        var region = MKCoordinateRegion()
+        
+        let latDelta = myMap.region.span.latitudeDelta * 2
+        let lngDelta = myMap.region.span.longitudeDelta * 2
+        
+        region.span.latitudeDelta = latDelta
+        region.span.longitudeDelta = lngDelta
+        region.center = myMap.region.center
+        
+        myMap.setRegion(region, animated: true)
+    }
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         let location = locations.last!
@@ -28,6 +62,8 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        btnCurrentLoc?.titleLabel?.textAlignment = NSTextAlignment.center
 
         if CLLocationManager.locationServicesEnabled() {
             locMgr = CLLocationManager()
@@ -37,12 +73,15 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
             locMgr.requestWhenInUseAuthorization()
             locMgr.startUpdatingLocation() // 開始更新位置
             
-            // 移動10公尺再更新座標 (如此就不會一直彈回所在位置)
+            // 當使用者移動了10公尺再更新座標 (如此地圖畫面就不會一直彈回所在位置)
             locMgr.distanceFilter = CLLocationDistance(10)
             
 //            print("OK")
         }
+        
+        myMap.delegate = self
     
+        
     }
     
     override func viewDidDisappear(_ animated: Bool) {
