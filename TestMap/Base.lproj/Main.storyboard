@@ -6,6 +6,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -23,14 +24,14 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="hybrid" showsUserLocation="YES" showsScale="YES" showsTraffic="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2TX-8R-M4W">
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" showsUserLocation="YES" showsScale="YES" showsTraffic="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2TX-8R-M4W" userLabel="mapView">
                                 <rect key="frame" x="24" y="44" width="327" height="528"/>
                             </mapView>
                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="0Ru-fC-EYX" userLabel="stackView">
                                 <rect key="frame" x="24" y="580" width="327" height="67"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="gef-Rw-wIv" userLabel="btnCurrentLoc">
-                                        <rect key="frame" x="0.0" y="0.0" width="109" height="67"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="82" height="67"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                         <state key="normal" title="Zoom to current location"/>
                                         <connections>
@@ -38,17 +39,24 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3tp-yA-nCS">
-                                        <rect key="frame" x="109" y="0.0" width="109" height="67"/>
+                                        <rect key="frame" x="82" y="0.0" width="81.5" height="67"/>
                                         <state key="normal" title="Zoom in"/>
                                         <connections>
                                             <action selector="mapZoomIn:" destination="BYZ-38-t0r" eventType="touchUpInside" id="fwc-MC-L45"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wAX-5m-Mj4">
-                                        <rect key="frame" x="218" y="0.0" width="109" height="67"/>
+                                        <rect key="frame" x="163.5" y="0.0" width="82" height="67"/>
                                         <state key="normal" title="Zoom out"/>
                                         <connections>
                                             <action selector="mapZoomOut:" destination="BYZ-38-t0r" eventType="touchUpInside" id="OfX-EO-rgG"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kN0-d0-SRn">
+                                        <rect key="frame" x="245.5" y="0.0" width="81.5" height="67"/>
+                                        <state key="normal" title="Test Page"/>
+                                        <connections>
+                                            <action selector="nextPage:" destination="BYZ-38-t0r" eventType="touchUpInside" id="hoS-cN-kRb"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -68,12 +76,62 @@
                     </view>
                     <connections>
                         <outlet property="btnCurrentLoc" destination="gef-Rw-wIv" id="1el-e8-r7Z"/>
-                        <outlet property="myMap" destination="2TX-8R-M4W" id="S2h-J7-trd"/>
+                        <outlet property="mapView" destination="2TX-8R-M4W" id="xve-Bt-Nxk"/>
+                        <segue destination="odt-Zh-1ow" kind="show" identifier="segMainToAnn" id="Shp-Bg-vPT"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="136.80000000000001" y="109.29535232383809"/>
+        </scene>
+        <!--AnnVC-->
+        <scene sceneID="Vsf-6H-qDG">
+            <objects>
+                <viewController storyboardIdentifier="annVC" id="odt-Zh-1ow" customClass="annVC" customModule="TestMap" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="dTc-mO-ldQ"/>
+                        <viewControllerLayoutGuide type="bottom" id="Bzj-ed-0Gg"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="IDT-wr-GmV">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ci5-7K-FPE" userLabel="navBar">
+                                <rect key="frame" x="0.0" y="28" width="375" height="44"/>
+                                <items>
+                                    <navigationItem title="Title" id="bYm-OX-rnq">
+                                        <barButtonItem key="leftBarButtonItem" title="Back" id="enU-Wb-Dng" userLabel="Back">
+                                            <connections>
+                                                <segue destination="jpd-sS-Ii0" kind="unwind" unwindAction="backHereWithSegue:" id="GS1-hY-ljf"/>
+                                            </connections>
+                                        </barButtonItem>
+                                    </navigationItem>
+                                </items>
+                            </navigationBar>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="UxB-Ps-8JU">
+                                <rect key="frame" x="50" y="246" width="275" height="174"/>
+                            </mapView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="Ci5-7K-FPE" firstAttribute="top" secondItem="dTc-mO-ldQ" secondAttribute="bottom" constant="8" id="2OT-JO-hqc" userLabel="Nav Bar.top = Top Layout Guide.bottom"/>
+                            <constraint firstItem="Ci5-7K-FPE" firstAttribute="leading" secondItem="IDT-wr-GmV" secondAttribute="leading" id="9m7-If-Yfe"/>
+                            <constraint firstItem="UxB-Ps-8JU" firstAttribute="centerY" secondItem="IDT-wr-GmV" secondAttribute="centerY" id="FdL-LX-QxH"/>
+                            <constraint firstItem="UxB-Ps-8JU" firstAttribute="centerX" secondItem="Ci5-7K-FPE" secondAttribute="centerX" id="HTe-Ba-4jx"/>
+                            <constraint firstAttribute="trailing" secondItem="Ci5-7K-FPE" secondAttribute="trailing" id="QDX-uL-OBP"/>
+                            <constraint firstItem="UxB-Ps-8JU" firstAttribute="width" secondItem="IDT-wr-GmV" secondAttribute="height" multiplier="275:667" id="Z1E-XX-CVb"/>
+                            <constraint firstItem="Bzj-ed-0Gg" firstAttribute="top" secondItem="UxB-Ps-8JU" secondAttribute="bottom" constant="247" id="sdw-cu-EOu"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="mapShowAnn" destination="UxB-Ps-8JU" id="OLw-7Z-cRA"/>
+                        <outlet property="navBar" destination="Ci5-7K-FPE" id="Izt-vQ-TrI"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="FLK-ha-5AT" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="jpd-sS-Ii0" userLabel="Exit" sceneMemberID="exit"/>
+            </objects>
+            <point key="canvasLocation" x="901.60000000000002" y="108.39580209895054"/>
         </scene>
     </scenes>
 </document>
