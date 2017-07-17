@@ -31,7 +31,12 @@ class annVC: UIViewController, MKMapViewDelegate {
 //        print(pin.title!)
 //        print(pin.description)
         
-        mapShowAnn.addAnnotation(pin)
+        let span = MKCoordinateSpan(latitudeDelta: 0.08, longitudeDelta: 0.08)
+        let region = MKCoordinateRegion(center: pin.coordinate, span: span)
+        
+        
+        self.mapShowAnn.setRegion(region, animated: true)
+        self.mapShowAnn.addAnnotation(pin)
         
     }
     
